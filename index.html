@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barbie's Birthday Surprise</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@500;600&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #FF4D8F;
+            color: white;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 100%;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            padding-top: 100px;
+        }
+        
+        .title {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3rem;
+            margin: 20px 0;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+        }
+        
+        .barbie-text {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 4rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        
+        .birthday-text {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3.5rem;
+            margin-bottom: 30px;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+        }
+        
+        .photo-frame {
+            width: 280px;
+            height: 280px;
+            margin: 0 auto 20px;
+            border-radius: 10px;
+            padding: 10px;
+            background-color: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+        
+        .photo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+        
+        .name {
+            font-size: 2.5rem;
+            margin: 20px 0;
+            font-weight: 600;
+        }
+        
+        .unlock-btn {
+            display: inline-block;
+            background-color: rgba(255, 255, 255, 0.7);
+            color: #FF4D8F;
+            font-size: 1.5rem;
+            font-weight: 600;
+            padding: 15px 40px;
+            border-radius: 40px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 20px;
+        }
+        
+        .unlock-btn:hover {
+            background-color: white;
+            transform: scale(1.05);
+        }
+        
+        .balloon {
+            position: absolute;
+            width: 60px;
+            height: 80px;
+            opacity: 0.8;
+            z-index: 1;
+            animation: float 15s infinite ease-in-out;
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-50px) rotate(5deg);
+            }
+        }
+        
+        .star {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: white;
+            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+            opacity: 0.7;
+            z-index: 1;
+            animation: twinkle 3s infinite;
+        }
+        
+        @keyframes twinkle {
+            0%, 100% {
+                opacity: 0.7;
+            }
+            50% {
+                opacity: 0.3;
+            }
+        }
+        
+        .surprise-content {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 75, 143, 0.95);
+            z-index: 10;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            text-align: center;
+            animation: fadeIn 0.5s;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            opacity: 0;
+            z-index: -1;
+        }
+        
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: white;
+            color: #FF4D8F;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            font-size: 20px;
+            cursor: pointer;
+        }
+        
+        .cake-image {
+            max-width: 300px;
+            max-height: 300px;
+            width: auto;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            margin-top: 20px;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .title {
+                font-size: 2.5rem;
+            }
+            
+            .barbie-text {
+                font-size: 3rem;
+            }
+            
+            .birthday-text {
+                font-size: 2.5rem;
+            }
+            
+            .photo-frame {
+                width: 220px;
+                height: 220px;
+            }
+            
+            .name {
+                font-size: 2rem;
+            }
+            
+            .unlock-btn {
+                font-size: 1.2rem;
+                padding: 12px 30px;
+            }
+            
+            .cake-image {
+                max-width: 250px;
+                max-height: 250px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .title {
+                font-size: 2rem;
+            }
+            
+            .barbie-text {
+                font-size: 2.5rem;
+            }
+            
+            .birthday-text {
+                font-size: 2rem;
+            }
+            
+            .photo-frame {
+                width: 180px;
+                height: 180px;
+            }
+            
+            .name {
+                font-size: 1.8rem;
+            }
+            
+            .cake-image {
+                max-width: 200px;
+                max-height: 200px;
+            }
+        }
+
+ .navbar {
+      width: 100%;
+      background-color: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(10px);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 30px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 100;
+      box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+  }
+
+  .nav-logo {
+      font-family: 'Dancing Script', cursive;
+      font-size: 2rem;
+      color: white;
+      text-shadow: 0 0 8px rgba(255, 255, 255, 0.7);
+  }
+
+  .nav-links {
+      display: flex;
+      gap: 20px;
+  }
+
+  .nav-links a {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+      color: white;
+      text-decoration: none;
+      font-size: 1rem;
+      position: relative;
+      transition: color 0.3s ease;
+  }
+
+  .nav-links a::after {
+      content: "";
+      position: absolute;
+      width: 0%;
+      height: 2px;
+      background-color: white;
+      left: 0;
+      bottom: -5px;
+      transition: width 0.3s ease;
+  }
+
+  .nav-links a:hover {
+      color: #ffe0f0;
+  }
+
+  .nav-links a:hover::after {
+      width: 100%;
+  }
+
+  @media (max-width: 768px) {
+      .nav-links {
+          flex-direction: column;
+          background: rgba(255, 255, 255, 0.1);
+          position: absolute;
+          top: 70px;
+          right: 0;
+          width: 100%;
+          display: none;
+      }
+
+      .navbar.active .nav-links {
+          display: flex;
+      }
+  }
+.back-btn {
+    display: inline-block;
+    margin: 20px;
+    padding: 10px 20px;
+    background-color: rgba(255, 255, 255, 0.8);
+    color: #FF4D8F;
+    font-weight: 600;
+    font-size: 1.2rem;
+    border-radius: 30px;
+    text-decoration: none;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
+}
+
+.back-btn:hover {
+    background-color: white;
+    transform: scale(1.05);
+}
+
+    </style>
+</head>
+<body>
+
+<header class="navbar">
+  <div class="nav-logo">🎀 Divyanshi's Birthday</div>
+  <nav class="nav-links">
+    <a href="landing.html">Home</a>
+    <a href="memory.html">Memory Gallery</a>
+    <a href="message.html">Message Wall</a>
+    <a href="cake.html">Cake Cutting</a>
+  </nav>
+</header>
+
+
+    <div class="container">
+        <h1 class="title">Welcome to</h1>
+        <div>
+            <div class="barbie-text">Divyanshi's </div>
+            <div class="birthday-text">Birthday World!</div>
+        </div>
+        
+        <div class="photo-frame">
+            <img src="C:\Users\hp\Desktop\devu birthday\images\d16.jpeg" alt="Birthday Person" class="photo">
+        </div>
+        
+        <h2 class="name">Birthday? Divyanshi mode : ON</h2>
+        
+        <button class="unlock-btn" id="unlockBtn">
+            Tap to Unlock the Surprise
+        </button>
+    </div>
+    
+    <div class="surprise-content" id="surpriseContent">
+        <button class="close-btn" id="closeBtn">×</button>
+        <h1 class="barbie-text">Surprise!</h1>
+        <h2 style="font-size: 2rem; margin: 20px 0;">Happiest birthday Sharma jii </h2>
+        <p style="font-size: 1.2rem; max-width: 600px; margin: 0 auto 30px;">
+            A veery verry happy happy birthday Divyanshi ❤️, God bless yu always  
+        </p>
+        <div>
+            <img src="C:\Users\hp\Desktop\devu birthday\images\cake.png" alt="Birthday Cake" class="cake-image">
+        </div>
+    </div>
+
+    <script>
+        // Create balloons
+        const balloonColors = ['#FF80AB', '#D500F9', '#FF4D8F', '#F48FB1'];
+        for (let i = 0; i < 12; i++) {
+            const balloon = document.createElement('div');
+            balloon.className = 'balloon';
+            balloon.style.backgroundColor = balloonColors[Math.floor(Math.random() * balloonColors.length)];
+            balloon.style.left = `${Math.random() * 100}%`;
+            balloon.style.top = `${Math.random() * 100}%`;
+            balloon.style.animationDelay = `${Math.random() * 5}s`;
+            balloon.style.borderRadius = '50% 50% 50% 50% / 60% 60% 40% 40%';
+            document.body.appendChild(balloon);
+            
+            // Add balloon string
+            const string = document.createElement('div');
+            string.style.position = 'absolute';
+            string.style.width = '2px';
+            string.style.height = '100px';
+            string.style.backgroundColor = 'rgba(255, 255, 255, 0.5)';
+            string.style.bottom = '-100px';
+            string.style.left = '50%';
+            string.style.transform = 'translateX(-50%)';
+            balloon.appendChild(string);
+        }
+        
+        // Create stars
+        for (let i = 0; i < 20; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            star.style.left = `${Math.random() * 100}%`;
+            star.style.top = `${Math.random() * 100}%`;
+            star.style.width = `${5 + Math.random() * 10}px`;
+            star.style.height = `${5 + Math.random() * 10}px`;
+            star.style.animationDelay = `${Math.random() * 3}s`;
+            document.body.appendChild(star);
+        }
+        
+        // Unlock button functionality
+        const unlockBtn = document.getElementById('unlockBtn');
+        const surpriseContent = document.getElementById('surpriseContent');
+        const closeBtn = document.getElementById('closeBtn');
+        
+        unlockBtn.addEventListener('click', () => {
+            surpriseContent.style.display = 'flex';
+            createConfetti();
+        });
+        
+        closeBtn.addEventListener('click', () => {
+            surpriseContent.style.display = 'none';
+        });
+        
+        // Create confetti animation
+        function createConfetti() {
+            const confettiColors = ['#FFC107', '#FF5722', '#4CAF50', '#2196F3', '#9C27B0', '#FFEB3B'];
+            
+            for (let i = 0; i < 100; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.backgroundColor = confettiColors[Math.floor(Math.random() * confettiColors.length)];
+                confetti.style.left = `${Math.random() * 100}%`;
+                confetti.style.top = '-10px';
+                confetti.style.opacity = '1';
+                
+                // Random shapes
+                if (Math.random() > 0.5) {
+                    confetti.style.width = `${5 + Math.random() * 7}px`;
+                    confetti.style.height = `${5 + Math.random() * 7}px`;
+                    confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+                } else {
+                    confetti.style.width = `${5 + Math.random() * 7}px`;
+                    confetti.style.height = `${5 + Math.random() * 7}px`;
+                    confetti.style.transform = `rotate(${Math.random() * 360}deg)`;
+                }
+                
+                document.body.appendChild(confetti);
+                
+                // Animate confetti falling
+                const fallDuration = 3 + Math.random() * 5;
+                confetti.animate([
+                    { 
+                        transform: `translateY(0) rotate(0deg)`, 
+                        opacity: 1 
+                    },
+                    { 
+                        transform: `translateY(${window.innerHeight}px) rotate(${360 + Math.random() * 360}deg)`, 
+                        opacity: 0 
+                    }
+                ], {
+                    duration: fallDuration * 1000,
+                    delay: Math.random() * 500,
+                    easing: 'cubic-bezier(0.4, 0, 1, 1)'
+                });
+                
+                // Remove confetti after animation
+                setTimeout(() => {
+                    confetti.remove();
+                }, fallDuration * 1000 + 500);
+            }
+        }
+        
+        // Add music note icon that bounces
+        const musicNote = document.createElement('div');
+        musicNote.innerHTML = '♫';
+        musicNote.style.position = 'fixed';
+        musicNote.style.bottom = '20px';
+        musicNote.style.right = '20px';
+        musicNote.style.fontSize = '30px';
+        musicNote.style.animation = 'bounce 1s infinite alternate';
+        document.body.appendChild(musicNote);
+        
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes bounce {
+                from { transform: translateY(0); }
+                to { transform: translateY(-10px); }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>

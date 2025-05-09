@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cut The Cake</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial Rounded MT Bold', 'Arial', sans-serif;
+            background-color: #f06292;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            max-width: 500px;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .title {
+            font-size: 3.5rem;
+            color: white;
+            text-align: center;
+            margin-bottom: 20px;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            line-height: 1;
+        }
+        
+        .cake-container {
+            position: relative;
+            width: 220px;
+            margin: 20px 0 40px;
+        }
+        
+        .cake {
+            width: 100%;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .cake-top {
+            background-color: #ffbbd3;
+            height: 60px;
+            width: 100%;
+            border-radius: 50% 50% 0 0;
+            position: relative;
+            box-shadow: 0 -5px 0 #f48fb1;
+        }
+        
+        .cake-middle {
+            background-color: #ffcdd2;
+            height: 60px;
+            width: 100%;
+            position: relative;
+            box-shadow: 0 -5px 0 #f48fb1;
+        }
+        
+        .cake-bottom {
+            background-color: #ffcdd2;
+            height: 60px;
+            width: 100%;
+            border-radius: 0 0 20px 20px;
+            position: relative;
+            box-shadow: 0 5px 0 rgba(0, 0, 0, 0.1);
+        }
+        
+        .frosting {
+            position: absolute;
+            background-color: #f48fb1;
+            height: 20px;
+            width: 20px;
+            border-radius: 50%;
+            z-index: 3;
+        }
+        
+        .frosting-top {
+            top: -10px;
+        }
+        
+        .frosting-middle {
+            top: 50px;
+        }
+        
+        .frosting-bottom {
+            top: 110px;
+        }
+        
+        .plate {
+            width: 260px;
+            height: 20px;
+            background-color: #f5f5f5;
+            border-radius: 50%;
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+            z-index: 1;
+        }
+        
+        .candle {
+            width: 10px;
+            height: 40px;
+            background: linear-gradient(45deg, #ffd54f 25%, #ffeb3b 25%, #ffeb3b 50%, #ffd54f 50%, #ffd54f 75%, #ffeb3b 75%);
+            background-size: 10px 10px;
+            position: absolute;
+            bottom: 100%;
+            z-index: 4;
+        }
+        
+        .flame {
+            width: 10px;
+            height: 20px;
+            background: linear-gradient(to top, #ff9800, #ffeb3b);
+            border-radius: 50% 50% 20% 20%;
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            filter: drop-shadow(0 0 5px #ff9800);
+            animation: flicker 0.5s infinite alternate;
+        }
+        
+        @keyframes flicker {
+            0% {
+                transform: translateX(-50%) scale(1);
+                opacity: 0.9;
+            }
+            100% {
+                transform: translateX(-50%) scale(1.1);
+                opacity: 1;
+            }
+        }
+        
+        .candle:nth-child(1) {
+            left: 20%;
+        }
+        
+        .candle:nth-child(2) {
+            left: 35%;
+        }
+        
+        .candle:nth-child(3) {
+            left: 50%;
+        }
+        
+        .candle:nth-child(4) {
+            left: 65%;
+        }
+        
+        .candle:nth-child(5) {
+            left: 80%;
+        }
+        
+        .button {
+            background-color: #ffc1b6;
+            color: #b25d53;
+            border: none;
+            padding: 15px 60px;
+            font-size: 1.5rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+            transition: all 0.3s;
+            position: relative;
+            z-index: 5;
+        }
+        
+        .button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        .button:active {
+            transform: translateY(1px);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .emoji {
+            position: absolute;
+            font-size: 2rem;
+            z-index: 0;
+            animation: float 5s infinite ease-in-out;
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+        
+        .emoji:nth-child(1) {
+            top: 10%;
+            left: 15%;
+            animation-delay: 0s;
+        }
+        
+        .emoji:nth-child(2) {
+            top: 70%;
+            left: 80%;
+            animation-delay: 1s;
+        }
+        
+        .emoji:nth-child(3) {
+            top: 20%;
+            right: 15%;
+            animation-delay: 2s;
+        }
+        
+        .emoji:nth-child(4) {
+            bottom: 20%;
+            left: 10%;
+            animation-delay: 3s;
+        }
+        
+        .emoji:nth-child(5) {
+            bottom: 30%;
+            right: 10%;
+            animation-delay: 4s;
+        }
+        
+        .emoji:nth-child(6) {
+            top: 40%;
+            left: 10%;
+            animation-delay: 3.5s;
+        }
+        
+        .knife {
+            position: absolute;
+            width: 120px;
+            height: 10px;
+            background-color: #e0e0e0;
+            border-radius: 5px;
+            top: 50%;
+            right: -150px;
+            transform: translateY(-50%);
+            z-index: 10;
+            opacity: 0;
+            transition: all 0.5s ease;
+        }
+        
+        .knife:before {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 25px;
+            background-color: #9e9e9e;
+            border-radius: 3px;
+            right: -10px;
+            top: -7px;
+        }
+        
+        .slice {
+            position: absolute;
+            width: 100%;
+            height: 0;
+            border-left: 4px dashed rgba(255, 255, 255, 0.7);
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            height: 100%;
+            z-index: 3;
+            opacity: 0;
+        }
+        
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            opacity: 0;
+            z-index: 15;
+        }
+        
+        .birthday-message {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 3rem;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            z-index: 20;
+            opacity: 0;
+            transition: all 0.5s ease;
+            text-align: center;
+            width: 100%;
+        }
+        
+        .balloon {
+            position: absolute;
+            width: 40px;
+            height: 50px;
+            border-radius: 50%;
+            opacity: 0.6;
+            z-index: 0;
+        }
+        
+        @media (max-width: 600px) {
+            .title {
+                font-size: 2.5rem;
+            }
+            
+            .cake-container {
+                width: 180px;
+            }
+            
+            .plate {
+                width: 220px;
+            }
+            
+            .button {
+                padding: 12px 50px;
+                font-size: 1.3rem;
+            }
+            
+            .emoji {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<a href="landing.html" class="back-btn">← Back</a>
+
+<body>
+    <div class="emoji">😊</div>
+    <div class="emoji">👍</div>
+    <div class="emoji">😄</div>
+    <div class="emoji">❤️</div>
+    <div class="emoji">❤️</div>
+    <div class="emoji">👍</div>
+    
+    <div class="balloon" style="top: 15%; right: 10%; background-color: rgba(255,255,255,0.2);"></div>
+    
+    <div class="container">
+        <h1 class="title">CUT THE<br>CAKE</h1>
+        
+        <div class="cake-container">
+            <div class="cake">
+                <div class="candle">
+                    <div class="flame"></div>
+                </div>
+                <div class="candle">
+                    <div class="flame"></div>
+                </div>
+                <div class="candle">
+                    <div class="flame"></div>
+                </div>
+                <div class="candle">
+                    <div class="flame"></div>
+                </div>
+                <div class="candle">
+                    <div class="flame"></div>
+                </div>
+                
+                <div class="cake-top"></div>
+                <div class="cake-middle"></div>
+                <div class="cake-bottom"></div>
+                
+                <div class="slice"></div>
+                
+                <!-- Frosting decorations -->
+                <div class="frosting frosting-top" style="left: 10%;"></div>
+                <div class="frosting frosting-top" style="left: 30%;"></div>
+                <div class="frosting frosting-top" style="left: 50%;"></div>
+                <div class="frosting frosting-top" style="left: 70%;"></div>
+                <div class="frosting frosting-top" style="left: 90%;"></div>
+                
+                <div class="frosting frosting-middle" style="left: 10%;"></div>
+                <div class="frosting frosting-middle" style="left: 30%;"></div>
+                <div class="frosting frosting-middle" style="left: 50%;"></div>
+                <div class="frosting frosting-middle" style="left: 70%;"></div>
+                <div class="frosting frosting-middle" style="left: 90%;"></div>
+                
+                <div class="frosting frosting-bottom" style="left: 10%;"></div>
+                <div class="frosting frosting-bottom" style="left: 30%;"></div>
+                <div class="frosting frosting-bottom" style="left: 50%;"></div>
+                <div class="frosting frosting-bottom" style="left: 70%;"></div>
+                <div class="frosting frosting-bottom" style="left: 90%;"></div>
+                
+                <div class="plate"></div>
+                <div class="knife"></div>
+            </div>
+        </div>
+        
+        <button class="button">Cut the cake</button>
+        
+        <div class="birthday-message">A VERY HAPPY BIRTHDAY DIVYANSHII❤️❤️!</div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const button = document.querySelector('.button');
+            const knife = document.querySelector('.knife');
+            const slice = document.querySelector('.slice');
+            const flames = document.querySelectorAll('.flame');
+            const message = document.querySelector('.birthday-message');
+            const cakeContainer = document.querySelector('.cake-container');
+            
+            button.addEventListener('click', cutCake);
+            
+            function cutCake() {
+                // Disable button
+                button.disabled = true;
+                
+                // Show knife
+                knife.style.opacity = '1';
+                knife.style.right = '120%';
+                
+                // Wait and then animate cutting
+                setTimeout(() => {
+                    // Show slice line
+                    slice.style.opacity = '1';
+                    
+                    // Extinguish flames
+                    flames.forEach(flame => {
+                        flame.style.opacity = '0';
+                    });
+                    
+                    // Create confetti explosion
+                    createConfetti();
+                    
+                    // Show birthday message
+                    setTimeout(() => {
+                        message.style.opacity = '1';
+                    }, 500);
+                    
+                    // Reset after animation
+                    setTimeout(() => {
+                        button.disabled = false;
+                        knife.style.opacity = '0';
+                        knife.style.right = '-150px';
+                    }, 2000);
+                }, 1000);
+            }
+            
+            function createConfetti() {
+                const colors = ['#f48fb1', '#ffd54f', '#4fc3f7', '#aed581', '#9575cd'];
+                const confettiCount = 80;
+                
+                for (let i = 0; i < confettiCount; i++) {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.left = `${Math.random() * 100}%`;
+                    confetti.style.top = `${Math.random() * 50 + 25}%`;
+                    confetti.style.transform = `rotate(${Math.random() * 360}deg)`;
+                    
+                    // Random shape
+                    if (Math.random() > 0.5) {
+                        confetti.style.borderRadius = '50%';
+                    } else {
+                        confetti.style.width = `${5 + Math.random() * 7}px`;
+                        confetti.style.height = `${5 + Math.random() * 7}px`;
+                    }
+                    
+                    document.body.appendChild(confetti);
+                    
+                    // Animate
+                    const duration = 1000 + Math.random() * 2000;
+                    const xDistance = (Math.random() - 0.5) * window.innerWidth * 0.7;
+                    const yDistance = Math.random() * window.innerHeight * 0.7;
+                    
+                    confetti.animate([
+                        { 
+                            transform: `translate(0, 0) rotate(0deg)`,
+                            opacity: 1
+                        },
+                        { 
+                            transform: `translate(${xDistance}px, ${yDistance}px) rotate(${Math.random() * 720}deg)`,
+                            opacity: 0
+                        }
+                    ], {
+                        duration: duration,
+                        easing: 'cubic-bezier(.05, .43, .25, .95)',
+                        fill: 'forwards'
+                    });
+                    
+                    // Remove after animation
+                    setTimeout(() => {
+                        confetti.remove();
+                    }, duration);
+                }
+            }
+            
+            // Create floating stars in background
+            function createStars() {
+                for (let i = 0; i < 15; i++) {
+                    const star = document.createElement('div');
+                    star.style.position = 'absolute';
+                    star.style.width = '3px';
+                    star.style.height = '3px';
+                    star.style.backgroundColor = 'white';
+                    star.style.borderRadius = '50%';
+                    star.style.opacity = '0.7';
+                    star.style.left = `${Math.random() * 100}%`;
+                    star.style.top = `${Math.random() * 100}%`;
+                    star.style.zIndex = '0';
+                    
+                    document.body.appendChild(star);
+                    
+                    // Twinkling animation
+                    const duration = 2000 + Math.random() * 3000;
+                    
+                    star.animate([
+                        { opacity: 0.2 },
+                        { opacity: 0.8 },
+                        { opacity: 0.2 }
+                    ], {
+                        duration: duration,
+                        iterations: Infinity
+                    });
+                }
+            }
+            
+            createStars();
+        });
+    </script>
+</body>
+</html>

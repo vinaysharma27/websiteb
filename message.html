@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Message Wall</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            background-color: #ff77a9;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .title {
+            color: white;
+            font-size: 3.5rem;
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 30px;
+            line-height: 1.1;
+        }
+        
+        .cork-board {
+            background-color: #e9a76f;
+            border: 15px solid #ffb0cb;
+            border-radius: 10px;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            max-width: 500px;
+            width: 100%;
+            position: relative;
+        }
+        
+        .cork-board::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(rgba(0,0,0,0.1) 10%, transparent 10%);
+            background-size: 10px 10px;
+            pointer-events: none;
+        }
+        
+        .note {
+            background-color: white;
+            position: relative;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
+            font-size: 16px;
+            min-height: 100px;
+            height: auto;
+            transition: transform 0.2s;
+        }
+        
+        .note:hover {
+            transform: scale(1.02);
+        }
+        
+        .pin {
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            position: absolute;
+            top: 7px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .pin.yellow {
+            background-color: #ffcc00;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+        }
+        
+        .pin.blue {
+            background-color: #77ccff;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+        }
+        
+        .back-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: bold;
+            padding: 8px 15px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        
+        .back-btn:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+        
+        @media (max-width: 600px) {
+            .cork-board {
+                padding: 20px;
+            }
+            
+            .title {
+                font-size: 2.8rem;
+                margin-bottom: 20px;
+            }
+        }
+        
+        @media (max-width: 400px) {
+            .title {
+                font-size: 2.2rem;
+            }
+            
+            .note {
+                padding: 15px;
+                font-size: 14px;
+            }
+            
+            .back-btn {
+                font-size: 16px;
+                padding: 6px 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="landing.html" class="back-btn">← Back</a>
+
+    <h1 class="title">MESSAGE<br>WALL</h1>
+    
+    <div class="cork-board" id="cork-board">
+        <div class="note">
+            <div class="pin yellow"></div>
+            Divyanshi Sharma
+        </div>
+        
+        <div class="note">
+            <div class="pin blue"></div>
+            A very very happiest birthday to yu ❤️
+        </div>
+        
+        <div class="note">
+            <div class="pin yellow"></div>
+            As today is yur birthday i wish and pray that yu get and acheive whatever yu wish for. I have created a lot of memories with yu and will definetly will continuee creating in future. Yu are an awesome soul and person and as i always the best thing that had happened to me is yu in the university. Thank yu for being an aswesome person as yu are. i would be always gretaful and me yes me being me dekho "taang krna too mein nahi chodunga theke" baki jokes apart i am very thankfull to have yu. God bless yu, a very very happy birthday once again❤️❤️❤️.
+        </div>
+    </div>
+</body>
+</html>
